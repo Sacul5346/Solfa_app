@@ -18,4 +18,9 @@ export default defineConfig([
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
+  {
+    // Le serveur tourne sous Node, pas dans le navigateur
+    files: ['server/**/*.js'],
+    languageOptions: { globals: globals.node },
+  },
 ])

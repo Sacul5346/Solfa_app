@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { solfaToFrequency, frequencyToSolfa, KEYS_DISPONIBLES } from '../utils/notesDatabase';
-import { playNote } from '../utils/audioEngine';
+import { playNoteWithReference } from '../utils/audioEngine';
 import { recordAndDetectPitch, ecartEnCents } from '../utils/pitchDetector';
 
 const SYLLABES_BASE = ['d', 'r', 'm', 'f', 's', 'l', 't'];
@@ -19,7 +19,7 @@ export default function VoicePage() {
   const frequenceCible = solfaToFrequency(cible, key, octave);
 
   const ecouterCible = () => {
-    playNote(frequenceCible);
+    playNoteWithReference(solfaToFrequency('d', key, octave), frequenceCible);
   };
 
   const chanter = async () => {
@@ -66,7 +66,7 @@ export default function VoicePage() {
       <p className="eyebrow">Reconnaissance vocale</p>
       <h1>Chante la note</h1>
       <p className="page-intro">
-        Écoute la cible, puis chante-la. L'application évalue ta justesse.
+        Écoute le do (d) puis la cible, et chante-la. L'application évalue ta justesse.
       </p>
 
       <div className="controls-row">
@@ -92,7 +92,7 @@ export default function VoicePage() {
       <p className="selection-summary">Cible : {cible} · Key {key} · octave {octave}</p>
 
       <button type="button" className="qcm-listen" onClick={ecouterCible}>
-        Écouter la cible
+        Écouter do + la cible
       </button>
 
       <div className="qcm-panel">
